@@ -3,9 +3,8 @@ import asyncio
 
 async def get_article_details(url):
     async with async_playwright() as p:
-        # browser = await p.chromium.launch(headless=False)
-        browser = await p.firefox.launch(headless=False)
-        page = await browser.new_page()
+        browser = await p.chromium.launch(headless=False) #参数改为headless=Ture则表示内核浏览器会后台运行
+        page = await browser.new_page() #创建新页面
         # Wait until network is idle after going to the page
         # await page.goto(url, wait_until='networkidle') # It considers the network to be idle when there are no more than 0 network connections for at least 500 ms (by default).
         # load is fired when the page and its resources (images, scripts, stylesheets, etc.) have finished loading. 
@@ -18,7 +17,6 @@ async def get_article_details(url):
         await browser.close()
 
 async def main():
-    # url = 'https://twitter.com/OldRowSwig/status/1732112446943269347?s=20'
     url = 'https://techcrunch.com/2024/04/20/boston-dynamics-unveils-a-new-robot-controversy-over-mkbhd-and-layoffs-at-tesla/'
     await get_article_details(url)
 
